@@ -3,10 +3,30 @@
   font-family: 'Arial', sans-serif;
 }
 
-body {
+body, html {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
+  background: #1f2230;
+}
+
+#orientationWarning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1f2230;
+  color: white;
+  font-size: 6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1000;
+  display: none;
 }
 
 #game {
@@ -15,10 +35,9 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #1f2230;
   display: flex;
   align-items: flex-end;
-  padding: 4vw; /* responsive padding */
+  padding: 4vw;
   position: relative;
 }
 
@@ -101,7 +120,6 @@ button:disabled {
   to { opacity: 1; }
 }
 
-/* Persistent music button for mobile */
 #musicBtn {
   position: absolute;
   left: 90%;
