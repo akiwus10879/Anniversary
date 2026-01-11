@@ -20,7 +20,51 @@ const text = document.getElementById("text");
 const nextBtn = document.getElementById("nextBtn");
 const backBtn = document.getElementById("backBtn");
 
-/* Typing effect */
+// Audio
+const audio = new Audio("song.mp3");
+audio.loop = true;
+
+// Unlock audio on first interaction
+let firstInteraction = false;
+function enableAudio() {
+  if (!firstInteraction) {
+    audio.play().catch(() => {});
+    audio.pause();
+    firstInteraction = true;
+    document.removeEventListener("touchstart", enableAudio);
+    document.removeEventListener("click", enableAudio);
+  }
+}
+document.addEventListener("touchstart", enableAudio, { once: true });
+document.addEventListener("click", enableAudio, { once: true });
+
+// Music button
+const musicBtn = document.createElement("button");
+musicBtn.id = "musicBtn";
+musicBtn.textContent = "Play Music 🎵";
+musicBtn.style.display = "none";
+document.body.appendChild(musicBtn);
+
+musicBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    musicBtn.textContent = "Pause Music ⏸️";
+  } else {
+    audio.pause();
+    musicBtn.textContent = "Play Music 🎵";
+  }
+});
+
+musicBtn.addEventListener("mouseenter", () => {
+  musicBtn.style.transform = "translate(-50%, -50%) scale(1.1)";
+  musicBtn.style.boxShadow = "0 6px 15px rgba(255,95,109,0.6)";
+});
+musicBtn.addEventListener("mouseleave", () => {
+  musicBtn.style.transform = "translate(-50%, -50%) scale(1)";
+  musicBtn.style.boxShadow = "none";
+});
+
+// Typing effect
 function typeText(element, message, speed = 35) {
   clearInterval(typingInterval);
   element.textContent = "";
@@ -38,7 +82,7 @@ function typeText(element, message, speed = 35) {
   }, speed);
 }
 
-/* Floating hearts */
+// Floating hearts
 function spawnHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -48,38 +92,7 @@ function spawnHeart() {
   setTimeout(() => heart.remove(), 4000);
 }
 
-/* Music button */
-const musicBtn = document.createElement("button");
-musicBtn.id = "musicBtn";
-musicBtn.textContent = "Play Music 🎵";
-musicBtn.style.display = "none";
-document.body.appendChild(musicBtn);
-
-musicBtn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play();
-    musicBtn.textContent = "Pause Music ⏸️";
-  } else {
-    audio.pause();
-    musicBtn.textContent = "Play Music 🎵";
-  }
-});
-
-/* Hover effect for desktop */
-musicBtn.addEventListener("mouseenter", () => {
-  musicBtn.style.transform = "translate(-50%, -50%) scale(1.1)";
-  musicBtn.style.boxShadow = "0 6px 15px rgba(255,95,109,0.6)";
-});
-musicBtn.addEventListener("mouseleave", () => {
-  musicBtn.style.transform = "translate(-50%, -50%) scale(1)";
-  musicBtn.style.boxShadow = "none";
-});
-
-// Audio
-const audio = new Audio("song.mp3");
-audio.loop = true;
-
-/* Scene loader */
+// Scene loader
 function loadScene(sceneIndex) {
   const scene = scenes[sceneIndex];
 
@@ -120,26 +133,37 @@ function loadScene(sceneIndex) {
   }
 }
 
-/* Navigation (click + touch support) */
+// Navigation
 function nextScene() {
   if (currentScene < scenes.length - 1) {
     currentScene++;
     loadScene(currentScene);
   }
 }
-
 function prevScene() {
   if (currentScene > 0) {
     currentScene--;
     loadScene(currentScene);
   }
 }
-
 nextBtn.addEventListener("click", nextScene);
 nextBtn.addEventListener("touchstart", nextScene);
-
 backBtn.addEventListener("click", prevScene);
 backBtn.addEventListener("touchstart", prevScene);
 
-/* Start game */
+// Orientation check
+function checkOrientation() {
+  const warning = document.getElementById("orientationWarning");
+  if (window.innerHeight > window.innerWidth) {
+    warning.style.display = "flex"; // portrait
+    game.style.display = "none";
+  } else {
+    warning.style.display = "none"; // landscape
+    game.style.display = "flex";
+  }
+}
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("load", checkOrientation);
+
+// Start game
 loadScene(currentScene);
