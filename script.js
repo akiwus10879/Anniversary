@@ -76,7 +76,7 @@ musicBtn.addEventListener("mouseleave", () => {
 });
 
 // Audio
-const audio = new Audio("audio/song.mp3");
+const audio = new Audio("song.mp3");
 audio.loop = true;
 
 /* Scene loader */
@@ -129,4 +129,5 @@ backBtn.addEventListener("touchstart", prevScene);
 
 /* Start game */
 loadScene(currentScene);
+
 
