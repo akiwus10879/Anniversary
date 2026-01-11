@@ -1,14 +1,14 @@
 const scenes = [
-  { background: "images/Scene1.png", text: "this is u being cutesy and stuff listening to music" },
-  { background: "images/Scene2.png", text: "press the button :3" },
-  { background: "images/Scene3.png", text: "it all started when we both randomly decided to userphone one day" },
-  { background: "images/Scene4.png", text: "you never fail to make me laugh" },
-  { background: "images/Scene5.png", text: "youre relatable asf" },
-  { background: "images/Scene6.png", text: "and kind" },
-  { background: "images/Scene7.png", text: "we share so many memories together and i hope we can make so much more" },
-  { background: "images/Scene8.png", text: "even from far away you became my favorite person" },
-  { background: "images/Scene9.png", text: "happy anniversary baby no matter the distance ill always love you. ❤️" },
-  { background: "images/Scene10.gif", text: "THE ENDDDDD" }
+  { background: "Scene1.png", text: "this is u being cutesy and stuff listening to music" },
+  { background: "Scene2.png", text: "press the button :3" },
+  { background: "Scene3.png", text: "it all started when we both randomly decided to userphone one day" },
+  { background: "Scene4.png", text: "you never fail to make me laugh" },
+  { background: "Scene5.png", text: "youre relatable asf" },
+  { background: "Scene6.png", text: "and kind" },
+  { background: "Scene7.png", text: "we share so many memories together and i hope we can make so much more" },
+  { background: "Scene8.png", text: "even from far away you became my favorite person" },
+  { background: "Scene9.png", text: "happy anniversary baby no matter the distance ill always love you. ❤️" },
+  { background: "Scene10.gif", text: "THE ENDDDDD" }
 ];
 
 let currentScene = 0;
@@ -129,3 +129,4 @@ backBtn.addEventListener("touchstart", prevScene);
 
 /* Start game */
 loadScene(currentScene);
+
