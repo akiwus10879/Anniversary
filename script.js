@@ -82,7 +82,21 @@ audio.loop = true;
 /* Scene loader */
 function loadScene(sceneIndex) {
   const scene = scenes[sceneIndex];
-  game.style.backgroundImage = `url('${scene.background}')`;
+
+  // Remove old GIF if exists
+  const oldImg = document.getElementById("sceneImg");
+  if (oldImg) oldImg.remove();
+
+  // Use <img> for GIF scene
+  if (scene.background.endsWith(".gif")) {
+    const img = document.createElement("img");
+    img.id = "sceneImg";
+    img.src = scene.background;
+    game.appendChild(img);
+    game.style.backgroundImage = "none";
+  } else {
+    game.style.backgroundImage = `url('${scene.background}')`;
+  }
 
   typeText(text, scene.text);
 
@@ -93,14 +107,14 @@ function loadScene(sceneIndex) {
   backBtn.disabled = sceneIndex === 0;
   nextBtn.style.display = sceneIndex === scenes.length - 1 ? "none" : "inline-block";
 
-  /* Hearts only on final scene */
+  // Hearts only on final scene
   if (sceneIndex === scenes.length - 1) {
     heartInterval = setInterval(spawnHeart, 2000);
   } else {
     clearInterval(heartInterval);
   }
 
-  /* Show music button from Scene2 onward */
+  // Show music button from Scene2 onward
   if (sceneIndex >= 1) {
     musicBtn.style.display = "block";
   }
@@ -129,5 +143,3 @@ backBtn.addEventListener("touchstart", prevScene);
 
 /* Start game */
 loadScene(currentScene);
-
-
